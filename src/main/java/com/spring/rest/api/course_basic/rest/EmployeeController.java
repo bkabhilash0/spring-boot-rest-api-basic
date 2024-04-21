@@ -3,6 +3,9 @@ package com.spring.rest.api.course_basic.rest;
 import com.spring.rest.api.course_basic.entity.Employee;
 import com.spring.rest.api.course_basic.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,9 +35,9 @@ public class EmployeeController {
     }
 
     @PostMapping("/employees")
-    public Employee createEmployee(@RequestBody Employee employee) {
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
         employee.setId(0);
-        return this.employeeService.save(employee);
+        return new ResponseEntity<>(this.employeeService.save(employee), HttpStatus.CREATED);
     }
 
     @PutMapping("/employees")
